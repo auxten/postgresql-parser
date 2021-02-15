@@ -18,12 +18,12 @@ import (
 	"strings"
 	"text/tabwriter"
 
-	"github.com/cockroachdb/cockroach/pkg/sql/pgwire/pgerror"
-	"github.com/cockroachdb/cockroach/pkg/sql/sem/tree"
-	"github.com/cockroachdb/cockroach/pkg/sql/sessiondata"
+	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgerror"
+	"github.com/auxten/postgresql-parser/pkg/sql/sem/tree"
+	"github.com/auxten/postgresql-parser/pkg/sql/sessiondata"
 	"github.com/cockroachdb/errors"
 
-	"github.com/auxten/postgresql-parser/pkg/sql/pgcode"
+	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgcode"
 )
 
 // HelpMessage describes a contextual help message.

@@ -17,9 +17,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/cockroachdb/cockroach/pkg/sql/lex"
-	"github.com/cockroachdb/cockroach/pkg/testutils"
-	"github.com/cockroachdb/cockroach/pkg/util/leaktest"
+	"github.com/auxten/postgresql-parser/pkg/sql/lex"
+	"github.com/auxten/postgresql-parser/pkg/testutils"
+	"github.com/auxten/postgresql-parser/pkg/util/leaktest"
 )
 
 func TestScanner(t *testing.T) {

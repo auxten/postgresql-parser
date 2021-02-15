@@ -16,9 +16,9 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/cockroachdb/cockroach/pkg/sql/lex"
-	"github.com/cockroachdb/cockroach/pkg/util/errorutil/unimplemented"
-	"github.com/cockroachdb/cockroach/pkg/util/protoutil"
+	"github.com/auxten/postgresql-parser/pkg/sql/lex"
+	"github.com/auxten/postgresql-parser/pkg/util/errorutil/unimplemented"
+	"github.com/auxten/postgresql-parser/pkg/util/protoutil"
 	"github.com/cockroachdb/errors"
 	"github.com/lib/pq/oid"
 )

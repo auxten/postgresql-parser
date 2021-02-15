@@ -14,8 +14,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/cockroachdb/cockroach/pkg/sql/pgwire/pgerror"
-	"github.com/cockroachdb/cockroach/pkg/sql/sem/tree"
+	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgerror"
+	"github.com/auxten/postgresql-parser/pkg/sql/sem/tree"
 )
 
 // RunShowSyntax analyzes the syntax and reports its structure as data

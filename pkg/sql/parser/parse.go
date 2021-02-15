@@ -23,12 +23,12 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/cockroachdb/cockroach/pkg/sql/pgwire/pgerror"
-	"github.com/cockroachdb/cockroach/pkg/sql/sem/tree"
-	"github.com/cockroachdb/cockroach/pkg/sql/types"
+	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgerror"
+	"github.com/auxten/postgresql-parser/pkg/sql/sem/tree"
+	"github.com/auxten/postgresql-parser/pkg/sql/types"
 	"github.com/cockroachdb/errors"
 
-	"github.com/auxten/postgresql-parser/pkg/sql/pgcode"
+	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgcode"
 )
 
 // Statement is the result of parsing a single statement. It contains the AST
