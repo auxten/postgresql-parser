@@ -10,7 +10,7 @@
 
 package tree
 
-import "github.com/auxten/postgresql-parser/pkg/sql/sqltelemetry"
+//import "github.com/auxten/postgresql-parser/pkg/sql/sqltelemetry"
 
 // FunctionDefinition implements a reference to the (possibly several)
 // overloads for a built-in function.
@@ -123,7 +123,7 @@ func NewFunctionDefinition(
 			props.AmbiguousReturnType = true
 		}
 		// Produce separate telemetry for each overload.
-		def[i].counter = sqltelemetry.BuiltinCounter(name, def[i].Signature(false))
+		//def[i].counter = sqltelemetry.BuiltinCounter(name, def[i].Signature(false))
 
 		overloads[i] = &def[i]
 	}

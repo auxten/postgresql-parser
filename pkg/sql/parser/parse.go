@@ -183,17 +183,17 @@ func (p *Parser) parse(
 		}
 		err := p.lexer.lastError
 
-		// Compatibility with 19.1 telemetry: prefix the telemetry keys
-		// with the "syntax." prefix.
-		// TODO(knz): move the auto-prefixing of feature names to a
-		// higher level in the call stack.
-		tkeys := errors.GetTelemetryKeys(err)
-		if len(tkeys) > 0 {
-			for i := range tkeys {
-				tkeys[i] = "syntax." + tkeys[i]
-			}
-			err = errors.WithTelemetry(err, tkeys...)
-		}
+		//// Compatibility with 19.1 telemetry: prefix the telemetry keys
+		//// with the "syntax." prefix.
+		//// TODO(knz): move the auto-prefixing of feature names to a
+		//// higher level in the call stack.
+		//tkeys := errors.GetTelemetryKeys(err)
+		//if len(tkeys) > 0 {
+		//	for i := range tkeys {
+		//		tkeys[i] = "syntax." + tkeys[i]
+		//	}
+		//	err = errors.WithTelemetry(err, tkeys...)
+		//}
 
 		return Statement{}, err
 	}

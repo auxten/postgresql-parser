@@ -16,7 +16,7 @@ import (
 
 	"github.com/auxten/postgresql-parser/pkg/sql/types"
 	"github.com/auxten/postgresql-parser/pkg/util/encoding"
-	"github.com/auxten/postgresql-parser/pkg/util/log"
+	"log"
 	"github.com/cockroachdb/errors"
 )
 

@@ -15,12 +15,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/auxten/postgresql-parser/pkg/server/telemetry"
+	//"github.com/auxten/postgresql-parser/pkg/server/telemetry"
 	"github.com/auxten/postgresql-parser/pkg/sql/lex"
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgcode"
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgerror"
 	"github.com/auxten/postgresql-parser/pkg/sql/sessiondata"
-	"github.com/auxten/postgresql-parser/pkg/sql/sqltelemetry"
+	//"github.com/auxten/postgresql-parser/pkg/sql/sqltelemetry"
 	"github.com/auxten/postgresql-parser/pkg/sql/types"
 	"github.com/auxten/postgresql-parser/pkg/util/errorutil/unimplemented"
 	"github.com/auxten/postgresql-parser/pkg/util/hlc"
@@ -344,10 +344,10 @@ func (expr *BinaryExpr) TypeCheck(ctx *SemaContext, desired *types.T) (TypedExpr
 
 	binOp := fns[0].(*BinOp)
 
-	// Register operator usage in telemetry.
-	if binOp.counter != nil {
-		telemetry.Inc(binOp.counter)
-	}
+	//// Register operator usage in telemetry.
+	//if binOp.counter != nil {
+	//	telemetry.Inc(binOp.counter)
+	//}
 
 	expr.Left, expr.Right = leftTyped, rightTyped
 	expr.fn = binOp
@@ -407,20 +407,20 @@ func (expr *CaseExpr) TypeCheck(ctx *SemaContext, desired *types.T) (TypedExpr, 
 	return expr, nil
 }
 
-func isCastDeepValid(castFrom, castTo *types.T) (bool, telemetry.Counter) {
+func isCastDeepValid(castFrom, castTo *types.T) bool {
 	if castTo.Family() == types.ArrayFamily && castFrom.Family() == types.ArrayFamily {
-		ok, c := isCastDeepValid(castFrom.ArrayContents(), castTo.ArrayContents())
-		if ok {
-			telemetry.Inc(sqltelemetry.ArrayCastCounter)
-		}
-		return ok, c
+		ok := isCastDeepValid(castFrom.ArrayContents(), castTo.ArrayContents())
+		//if ok {
+		//	telemetry.Inc(sqltelemetry.ArrayCastCounter)
+		//}
+		return ok
 	}
 	for _, t := range validCastTypes(castTo) {
 		if castFrom.Family() == t.fromT.Family() {
-			return true, t.counter
+			return true
 		}
 	}
-	return false, nil
+	return false
 }
 
 func isEmptyArray(expr Expr) bool {
@@ -473,8 +473,8 @@ func (expr *CastExpr) TypeCheck(ctx *SemaContext, _ *types.T) (TypedExpr, error)
 
 	castFrom := typedSubExpr.ResolvedType()
 
-	if ok, c := isCastDeepValid(castFrom, expr.Type); ok {
-		telemetry.Inc(c)
+	if ok := isCastDeepValid(castFrom, expr.Type); ok {
+		//telemetry.Inc(c)
 		expr.Expr = typedSubExpr
 		expr.typ = expr.Type
 		return expr, nil
@@ -511,7 +511,7 @@ func (expr *IndirectionExpr) TypeCheck(ctx *SemaContext, desired *types.T) (Type
 	expr.Expr = subExpr
 	expr.typ = typ.ArrayContents()
 
-	telemetry.Inc(sqltelemetry.ArraySubscriptCounter)
+	//telemetry.Inc(sqltelemetry.ArraySubscriptCounter)
 	return expr, nil
 }
 
@@ -674,10 +674,10 @@ func (expr *ComparisonExpr) TypeCheck(ctx *SemaContext, desired *types.T) (Typed
 		return DNull, nil
 	}
 
-	// Register operator usage in telemetry.
-	if fn.counter != nil {
-		telemetry.Inc(fn.counter)
-	}
+	//// Register operator usage in telemetry.
+	//if fn.counter != nil {
+	//	telemetry.Inc(fn.counter)
+	//}
 
 	expr.Left, expr.Right = leftTyped, rightTyped
 	expr.fn = fn
@@ -976,9 +976,9 @@ func (expr *FuncExpr) TypeCheck(ctx *SemaContext, desired *types.T) (TypedExpr, 
 			strings.Join(typeNames, ", "),
 		)
 	}
-	if overloadImpl.counter != nil {
-		telemetry.Inc(overloadImpl.counter)
-	}
+	//if overloadImpl.counter != nil {
+	//	telemetry.Inc(overloadImpl.counter)
+	//}
 	return expr, nil
 }
 
@@ -1015,7 +1015,7 @@ func (expr *IfErrExpr) TypeCheck(ctx *SemaContext, desired *types.T) (TypedExpr,
 	expr.ErrCode = typedErrCode
 	expr.typ = retType
 
-	telemetry.Inc(sqltelemetry.IfErrCounter)
+	//telemetry.Inc(sqltelemetry.IfErrCounter)
 	return expr, nil
 }
 
@@ -1199,10 +1199,10 @@ func (expr *UnaryExpr) TypeCheck(ctx *SemaContext, desired *types.T) (TypedExpr,
 
 	unaryOp := fns[0].(*UnaryOp)
 
-	// Register operator usage in telemetry.
-	if unaryOp.counter != nil {
-		telemetry.Inc(unaryOp.counter)
-	}
+	//// Register operator usage in telemetry.
+	//if unaryOp.counter != nil {
+	//	telemetry.Inc(unaryOp.counter)
+	//}
 
 	expr.Expr = exprTyped
 	expr.fn = unaryOp
@@ -1298,7 +1298,7 @@ func (expr *Array) TypeCheck(ctx *SemaContext, desired *types.T) (TypedExpr, err
 		expr.Exprs[i] = typedSubExprs[i]
 	}
 
-	telemetry.Inc(sqltelemetry.ArrayConstructorCounter)
+	//telemetry.Inc(sqltelemetry.ArrayConstructorCounter)
 	return expr, nil
 }
 
@@ -1316,7 +1316,7 @@ func (expr *ArrayFlatten) TypeCheck(ctx *SemaContext, desired *types.T) (TypedEx
 	expr.Subquery = subqueryTyped
 	expr.typ = types.MakeArray(subqueryTyped.ResolvedType())
 
-	telemetry.Inc(sqltelemetry.ArrayFlattenCounter)
+	//telemetry.Inc(sqltelemetry.ArrayFlattenCounter)
 	return expr, nil
 }
 

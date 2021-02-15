@@ -14,7 +14,7 @@ import (
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgcode"
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgerror"
 	"github.com/auxten/postgresql-parser/pkg/sql/types"
-	"github.com/auxten/postgresql-parser/pkg/util/log"
+	"log"
 	"github.com/cockroachdb/errors"
 )
 

@@ -15,11 +15,11 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/auxten/postgresql-parser/pkg/server/telemetry"
+	//"github.com/auxten/postgresql-parser/pkg/server/telemetry"
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgcode"
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgerror"
 	"github.com/auxten/postgresql-parser/pkg/sql/types"
-	"github.com/auxten/postgresql-parser/pkg/util/log"
+	"log"
 	"github.com/cockroachdb/errors"
 )
 
@@ -69,7 +69,7 @@ type Overload struct {
 
 	// counter, if non-nil, should be incremented upon successful
 	// type check of expressions using this overload.
-	counter telemetry.Counter
+	//counter telemetry.Counter
 
 	// SpecializedVecBuiltin is used to let the vectorized engine
 	// know when an Overload has a specialized vectorized operator.

@@ -15,7 +15,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/auxten/postgresql-parser/pkg/server/telemetry"
+	//"github.com/auxten/postgresql-parser/pkg/server/telemetry"
 	"github.com/auxten/postgresql-parser/pkg/sql/lex"
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgcode"
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgerror"
@@ -1511,7 +1511,7 @@ func NewTypedCastExpr(expr TypedExpr, typ *types.T) (*CastExpr, error) {
 
 type castInfo struct {
 	fromT   *types.T
-	counter telemetry.Counter
+	//counter telemetry.Counter
 }
 
 var (

@@ -14,8 +14,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/auxten/postgresql-parser/pkg/settings"
-	"github.com/auxten/postgresql-parser/pkg/util/log"
+	//"github.com/auxten/postgresql-parser/pkg/settings"
+	"log"
 	"github.com/cockroachdb/errors"
 )
 
@@ -38,13 +38,13 @@ func UnexpectedWithIssueErrorf(issue int, format string, args ...interface{}) er
 	return err
 }
 
-// SendReport creates a Sentry report about the error, if the settings allow.
-// The format string will be reproduced ad litteram in the report; the arguments
-// will be sanitized.
-func SendReport(ctx context.Context, sv *settings.Values, err error) {
-	if !log.ShouldSendReport(sv) {
-		return
-	}
-	msg, details, extraDetails := errors.BuildSentryReport(err)
-	log.SendReport(ctx, msg, log.ReportTypeError, extraDetails, details...)
-}
+//// SendReport creates a Sentry report about the error, if the settings allow.
+//// The format string will be reproduced ad litteram in the report; the arguments
+//// will be sanitized.
+//func SendReport(ctx context.Context, sv *settings.Values, err error) {
+//	if !log.ShouldSendReport(sv) {
+//		return
+//	}
+//	msg, details, extraDetails := errors.BuildSentryReport(err)
+//	log.SendReport(ctx, msg, log.ReportTypeError, extraDetails, details...)
+//}

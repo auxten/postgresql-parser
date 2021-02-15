@@ -13,7 +13,7 @@ package tree
 import (
 	"fmt"
 
-	"github.com/auxten/postgresql-parser/pkg/sql/sqltelemetry"
+	//"github.com/auxten/postgresql-parser/pkg/sql/sqltelemetry"
 	"github.com/auxten/postgresql-parser/pkg/sql/types"
 )
 
@@ -58,7 +58,7 @@ func init() {
 		opName := unaryOpName[op]
 		for _, impl := range overloads {
 			o := impl.(*UnaryOp)
-			o.counter = sqltelemetry.UnaryOpCounter(opName, o.Typ.String())
+			//o.counter = sqltelemetry.UnaryOpCounter(opName, o.Typ.String())
 		}
 	}
 
@@ -72,7 +72,7 @@ func init() {
 			o := impl.(*CmpOp)
 			lname := o.LeftType.String()
 			rname := o.RightType.String()
-			o.counter = sqltelemetry.CmpOpCounter(opName, lname, rname)
+			//o.counter = sqltelemetry.CmpOpCounter(opName, lname, rname)
 		}
 	}
 
@@ -86,7 +86,7 @@ func init() {
 			o := impl.(*BinOp)
 			lname := o.LeftType.String()
 			rname := o.RightType.String()
-			o.counter = sqltelemetry.BinOpCounter(opName, lname, rname)
+			//o.counter = sqltelemetry.BinOpCounter(opName, lname, rname)
 		}
 	}
 }
@@ -102,7 +102,7 @@ func annotateCast(toType *types.T, fromTypes []*types.T) []castInfo {
 
 	for i, fromType := range fromTypes {
 		lname := fromType.String()
-		ci[i].counter = sqltelemetry.CastOpCounter(lname, rname)
+		//ci[i].counter = sqltelemetry.CastOpCounter(lname, rname)
 	}
 	return ci
 }

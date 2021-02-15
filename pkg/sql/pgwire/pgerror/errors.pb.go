@@ -46,7 +46,7 @@ type Error struct {
 	//   populated with the first key found in errors.GetTelemetryKeys().
 	//
 	// TODO(knz): Remove in 19.3.
-	TelemetryKey string `protobuf:"bytes,6,opt,name=telemetry_key,json=telemetryKey,proto3" json:"telemetry_key,omitempty"`
+	//TelemetryKey string `protobuf:"bytes,6,opt,name=telemetry_key,json=telemetryKey,proto3" json:"telemetry_key,omitempty"`
 	// complement to the detail field that can be reported
 	// in sentry reports. This is scrubbed of PII.
 	//

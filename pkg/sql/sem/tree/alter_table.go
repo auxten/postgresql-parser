@@ -13,8 +13,8 @@ package tree
 import (
 	"strings"
 
-	"github.com/auxten/postgresql-parser/pkg/server/telemetry"
-	"github.com/auxten/postgresql-parser/pkg/sql/sqltelemetry"
+	//"github.com/auxten/postgresql-parser/pkg/server/telemetry"
+	//"github.com/auxten/postgresql-parser/pkg/sql/sqltelemetry"
 	"github.com/auxten/postgresql-parser/pkg/sql/types"
 )
 
@@ -51,9 +51,9 @@ func (node *AlterTableCmds) Format(ctx *FmtCtx) {
 // AlterTableCmd represents a table modification operation.
 type AlterTableCmd interface {
 	NodeFormatter
-	// TelemetryCounter returns the telemetry counter to increment
-	// when this command is used.
-	TelemetryCounter() telemetry.Counter
+	//// TelemetryCounter returns the telemetry counter to increment
+	//// when this command is used.
+	//TelemetryCounter() telemetry.Counter
 	// Placeholder function to ensure that only desired types
 	// (AlterTable*) conform to the AlterTableCmd interface.
 	alterTableCmd()
@@ -107,10 +107,10 @@ type AlterTableAddColumn struct {
 	ColumnDef   *ColumnTableDef
 }
 
-// TelemetryCounter implements the AlterTableCmd interface.
-func (node *AlterTableAddColumn) TelemetryCounter() telemetry.Counter {
-	return sqltelemetry.SchemaChangeAlterCounterWithExtra("table", "add_column")
-}
+//// TelemetryCounter implements the AlterTableCmd interface.
+//func (node *AlterTableAddColumn) TelemetryCounter() telemetry.Counter {
+//	return sqltelemetry.SchemaChangeAlterCounterWithExtra("table", "add_column")
+//}
 
 // Format implements the NodeFormatter interface.
 func (node *AlterTableAddColumn) Format(ctx *FmtCtx) {
@@ -182,10 +182,10 @@ type AlterTableAddConstraint struct {
 	ValidationBehavior ValidationBehavior
 }
 
-// TelemetryCounter implements the AlterTableCmd interface.
-func (node *AlterTableAddConstraint) TelemetryCounter() telemetry.Counter {
-	return sqltelemetry.SchemaChangeAlterCounterWithExtra("table", "add_constraint")
-}
+//// TelemetryCounter implements the AlterTableCmd interface.
+//func (node *AlterTableAddConstraint) TelemetryCounter() telemetry.Counter {
+//	return sqltelemetry.SchemaChangeAlterCounterWithExtra("table", "add_constraint")
+//}
 
 // Format implements the NodeFormatter interface.
 func (node *AlterTableAddConstraint) Format(ctx *FmtCtx) {
@@ -204,10 +204,10 @@ type AlterTableAlterColumnType struct {
 	Using     Expr
 }
 
-// TelemetryCounter implements the AlterTableCmd interface.
-func (node *AlterTableAlterColumnType) TelemetryCounter() telemetry.Counter {
-	return sqltelemetry.SchemaChangeAlterCounterWithExtra("table", "alter_column_type")
-}
+//// TelemetryCounter implements the AlterTableCmd interface.
+//func (node *AlterTableAlterColumnType) TelemetryCounter() telemetry.Counter {
+//	return sqltelemetry.SchemaChangeAlterCounterWithExtra("table", "alter_column_type")
+//}
 
 // Format implements the NodeFormatter interface.
 func (node *AlterTableAlterColumnType) Format(ctx *FmtCtx) {
@@ -237,10 +237,10 @@ type AlterTableAlterPrimaryKey struct {
 	Sharded    *ShardedIndexDef
 }
 
-// TelemetryCounter implements the AlterTableCmd interface.
-func (node *AlterTableAlterPrimaryKey) TelemetryCounter() telemetry.Counter {
-	return sqltelemetry.SchemaChangeAlterCounterWithExtra("table", "alter_primary_key")
-}
+//// TelemetryCounter implements the AlterTableCmd interface.
+//func (node *AlterTableAlterPrimaryKey) TelemetryCounter() telemetry.Counter {
+//	return sqltelemetry.SchemaChangeAlterCounterWithExtra("table", "alter_primary_key")
+//}
 
 // Format implements the NodeFormatter interface.
 func (node *AlterTableAlterPrimaryKey) Format(ctx *FmtCtx) {
@@ -262,10 +262,10 @@ type AlterTableDropColumn struct {
 	DropBehavior DropBehavior
 }
 
-// TelemetryCounter implements the AlterTableCmd interface.
-func (node *AlterTableDropColumn) TelemetryCounter() telemetry.Counter {
-	return sqltelemetry.SchemaChangeAlterCounterWithExtra("table", "drop_column")
-}
+//// TelemetryCounter implements the AlterTableCmd interface.
+//func (node *AlterTableDropColumn) TelemetryCounter() telemetry.Counter {
+//	return sqltelemetry.SchemaChangeAlterCounterWithExtra("table", "drop_column")
+//}
 
 // Format implements the NodeFormatter interface.
 func (node *AlterTableDropColumn) Format(ctx *FmtCtx) {
@@ -286,10 +286,10 @@ type AlterTableDropConstraint struct {
 	DropBehavior DropBehavior
 }
 
-// TelemetryCounter implements the AlterTableCmd interface.
-func (node *AlterTableDropConstraint) TelemetryCounter() telemetry.Counter {
-	return sqltelemetry.SchemaChangeAlterCounterWithExtra("table", "drop_constraint")
-}
+//// TelemetryCounter implements the AlterTableCmd interface.
+//func (node *AlterTableDropConstraint) TelemetryCounter() telemetry.Counter {
+//	return sqltelemetry.SchemaChangeAlterCounterWithExtra("table", "drop_constraint")
+//}
 
 // Format implements the NodeFormatter interface.
 func (node *AlterTableDropConstraint) Format(ctx *FmtCtx) {
@@ -308,10 +308,10 @@ type AlterTableValidateConstraint struct {
 	Constraint Name
 }
 
-// TelemetryCounter implements the AlterTableCmd interface.
-func (node *AlterTableValidateConstraint) TelemetryCounter() telemetry.Counter {
-	return sqltelemetry.SchemaChangeAlterCounterWithExtra("table", "validate_constraint")
-}
+//// TelemetryCounter implements the AlterTableCmd interface.
+//func (node *AlterTableValidateConstraint) TelemetryCounter() telemetry.Counter {
+//	return sqltelemetry.SchemaChangeAlterCounterWithExtra("table", "validate_constraint")
+//}
 
 // Format implements the NodeFormatter interface.
 func (node *AlterTableValidateConstraint) Format(ctx *FmtCtx) {
@@ -324,10 +324,10 @@ type AlterTableRenameTable struct {
 	NewName TableName
 }
 
-// TelemetryCounter implements the AlterTableCmd interface.
-func (node *AlterTableRenameTable) TelemetryCounter() telemetry.Counter {
-	return sqltelemetry.SchemaChangeAlterCounterWithExtra("table", "rename_table")
-}
+//// TelemetryCounter implements the AlterTableCmd interface.
+//func (node *AlterTableRenameTable) TelemetryCounter() telemetry.Counter {
+//	return sqltelemetry.SchemaChangeAlterCounterWithExtra("table", "rename_table")
+//}
 
 // Format implements the NodeFormatter interface.
 func (node *AlterTableRenameTable) Format(ctx *FmtCtx) {
@@ -341,10 +341,10 @@ type AlterTableRenameColumn struct {
 	NewName Name
 }
 
-// TelemetryCounter implements the AlterTableCmd interface.
-func (node *AlterTableRenameColumn) TelemetryCounter() telemetry.Counter {
-	return sqltelemetry.SchemaChangeAlterCounterWithExtra("table", "rename_column")
-}
+//// TelemetryCounter implements the AlterTableCmd interface.
+//func (node *AlterTableRenameColumn) TelemetryCounter() telemetry.Counter {
+//	return sqltelemetry.SchemaChangeAlterCounterWithExtra("table", "rename_column")
+//}
 
 // Format implements the NodeFormatter interface.
 func (node *AlterTableRenameColumn) Format(ctx *FmtCtx) {
@@ -360,10 +360,10 @@ type AlterTableRenameConstraint struct {
 	NewName    Name
 }
 
-// TelemetryCounter implements the AlterTableCmd interface.
-func (node *AlterTableRenameConstraint) TelemetryCounter() telemetry.Counter {
-	return sqltelemetry.SchemaChangeAlterCounterWithExtra("table", "rename_constraint")
-}
+//// TelemetryCounter implements the AlterTableCmd interface.
+//func (node *AlterTableRenameConstraint) TelemetryCounter() telemetry.Counter {
+//	return sqltelemetry.SchemaChangeAlterCounterWithExtra("table", "rename_constraint")
+//}
 
 // Format implements the NodeFormatter interface.
 func (node *AlterTableRenameConstraint) Format(ctx *FmtCtx) {
@@ -385,10 +385,10 @@ func (node *AlterTableSetDefault) GetColumn() Name {
 	return node.Column
 }
 
-// TelemetryCounter implements the AlterTableCmd interface.
-func (node *AlterTableSetDefault) TelemetryCounter() telemetry.Counter {
-	return sqltelemetry.SchemaChangeAlterCounterWithExtra("table", "set_default")
-}
+//// TelemetryCounter implements the AlterTableCmd interface.
+//func (node *AlterTableSetDefault) TelemetryCounter() telemetry.Counter {
+//	return sqltelemetry.SchemaChangeAlterCounterWithExtra("table", "set_default")
+//}
 
 // Format implements the NodeFormatter interface.
 func (node *AlterTableSetDefault) Format(ctx *FmtCtx) {
@@ -413,10 +413,10 @@ func (node *AlterTableSetNotNull) GetColumn() Name {
 	return node.Column
 }
 
-// TelemetryCounter implements the AlterTableCmd interface.
-func (node *AlterTableSetNotNull) TelemetryCounter() telemetry.Counter {
-	return sqltelemetry.SchemaChangeAlterCounterWithExtra("table", "set_not_null")
-}
+//// TelemetryCounter implements the AlterTableCmd interface.
+//func (node *AlterTableSetNotNull) TelemetryCounter() telemetry.Counter {
+//	return sqltelemetry.SchemaChangeAlterCounterWithExtra("table", "set_not_null")
+//}
 
 // Format implements the NodeFormatter interface.
 func (node *AlterTableSetNotNull) Format(ctx *FmtCtx) {
@@ -436,10 +436,10 @@ func (node *AlterTableDropNotNull) GetColumn() Name {
 	return node.Column
 }
 
-// TelemetryCounter implements the AlterTableCmd interface.
-func (node *AlterTableDropNotNull) TelemetryCounter() telemetry.Counter {
-	return sqltelemetry.SchemaChangeAlterCounterWithExtra("table", "drop_not_null")
-}
+//// TelemetryCounter implements the AlterTableCmd interface.
+//func (node *AlterTableDropNotNull) TelemetryCounter() telemetry.Counter {
+//	return sqltelemetry.SchemaChangeAlterCounterWithExtra("table", "drop_not_null")
+//}
 
 // Format implements the NodeFormatter interface.
 func (node *AlterTableDropNotNull) Format(ctx *FmtCtx) {
@@ -459,10 +459,10 @@ func (node *AlterTableDropStored) GetColumn() Name {
 	return node.Column
 }
 
-// TelemetryCounter implements the AlterTableCmd interface.
-func (node *AlterTableDropStored) TelemetryCounter() telemetry.Counter {
-	return sqltelemetry.SchemaChangeAlterCounterWithExtra("table", "drop_stored")
-}
+//// TelemetryCounter implements the AlterTableCmd interface.
+//func (node *AlterTableDropStored) TelemetryCounter() telemetry.Counter {
+//	return sqltelemetry.SchemaChangeAlterCounterWithExtra("table", "drop_stored")
+//}
 
 // Format implements the NodeFormatter interface.
 func (node *AlterTableDropStored) Format(ctx *FmtCtx) {
@@ -477,10 +477,10 @@ type AlterTablePartitionBy struct {
 	*PartitionBy
 }
 
-// TelemetryCounter implements the AlterTableCmd interface.
-func (node *AlterTablePartitionBy) TelemetryCounter() telemetry.Counter {
-	return sqltelemetry.SchemaChangeAlterCounterWithExtra("table", "partition_by")
-}
+//// TelemetryCounter implements the AlterTableCmd interface.
+//func (node *AlterTablePartitionBy) TelemetryCounter() telemetry.Counter {
+//	return sqltelemetry.SchemaChangeAlterCounterWithExtra("table", "partition_by")
+//}
 
 // Format implements the NodeFormatter interface.
 func (node *AlterTablePartitionBy) Format(ctx *FmtCtx) {
@@ -517,10 +517,10 @@ type AlterTableSetAudit struct {
 	Mode AuditMode
 }
 
-// TelemetryCounter implements the AlterTableCmd interface.
-func (node *AlterTableSetAudit) TelemetryCounter() telemetry.Counter {
-	return sqltelemetry.SchemaChangeAlterCounterWithExtra("table", "set_audit")
-}
+//// TelemetryCounter implements the AlterTableCmd interface.
+//func (node *AlterTableSetAudit) TelemetryCounter() telemetry.Counter {
+//	return sqltelemetry.SchemaChangeAlterCounterWithExtra("table", "set_audit")
+//}
 
 // Format implements the NodeFormatter interface.
 func (node *AlterTableSetAudit) Format(ctx *FmtCtx) {
@@ -533,10 +533,10 @@ type AlterTableInjectStats struct {
 	Stats Expr
 }
 
-// TelemetryCounter implements the AlterTableCmd interface.
-func (node *AlterTableInjectStats) TelemetryCounter() telemetry.Counter {
-	return sqltelemetry.SchemaChangeAlterCounterWithExtra("table", "inject_stats")
-}
+//// TelemetryCounter implements the AlterTableCmd interface.
+//func (node *AlterTableInjectStats) TelemetryCounter() telemetry.Counter {
+//	return sqltelemetry.SchemaChangeAlterCounterWithExtra("table", "inject_stats")
+//}
 
 // Format implements the NodeFormatter interface.
 func (node *AlterTableInjectStats) Format(ctx *FmtCtx) {
