@@ -18,10 +18,10 @@ import (
 	"runtime"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/auxten/postgresql-parser/pkg/util/humanizeutil"
-	"sync"
 )
 
 type envVarInfo struct {

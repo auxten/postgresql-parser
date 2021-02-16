@@ -20,10 +20,11 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/cockroachdb/errors"
+
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgcode"
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgerror"
 	"github.com/auxten/postgresql-parser/pkg/util/uint128"
-	"github.com/cockroachdb/errors"
 )
 
 var errResultOutOfRange = pgerror.WithCandidateCode(errors.New("result out of range"), pgcode.NumericValueOutOfRange)

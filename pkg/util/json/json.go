@@ -23,11 +23,12 @@ import (
 	"unsafe"
 
 	"github.com/cockroachdb/apd"
+	"github.com/cockroachdb/errors"
+
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgcode"
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgerror"
 	"github.com/auxten/postgresql-parser/pkg/util/encoding"
 	"github.com/auxten/postgresql-parser/pkg/util/unique"
-	"github.com/cockroachdb/errors"
 )
 
 // Type represents a JSON type.

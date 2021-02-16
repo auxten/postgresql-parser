@@ -17,13 +17,14 @@ package hlc
 import (
 	"context"
 	"fmt"
+	"sync"
 	"sync/atomic"
 	"time"
 
-	"log"
-	"sync"
-	"github.com/auxten/postgresql-parser/pkg/util/timeutil"
 	"github.com/pkg/errors"
+	log "github.com/sirupsen/logrus"
+
+	"github.com/auxten/postgresql-parser/pkg/util/timeutil"
 )
 
 // TODO(Tobias): Figure out if it would make sense to save some
@@ -252,14 +253,13 @@ func (c *Clock) checkPhysicalClock(ctx context.Context, oldTime, newTime int64) 
 	interval := oldTime - newTime
 	if interval > int64(c.maxOffset/10) {
 		atomic.AddInt32(&c.monotonicityErrorsCount, 1)
-		log.Warningf(ctx, "backward time jump detected (%f seconds)", float64(-interval)/1e9)
+		log.Warningf("backward time jump detected (%f seconds)", float64(-interval)/1e9)
 	}
 
 	if atomic.LoadInt32(&c.forwardClockJumpCheckEnabled) != 0 {
 		toleratedForwardClockJump := c.toleratedForwardClockJump()
 		if int64(toleratedForwardClockJump) <= -interval {
 			log.Fatalf(
-				ctx,
 				"detected forward time jump of %f seconds is not allowed with tolerance of %f seconds",
 				float64(-interval)/1e9,
 				float64(toleratedForwardClockJump)/1e9,
@@ -296,7 +296,6 @@ func (c *Clock) enforceWallTimeWithinBoundLocked() {
 	// WallTime should not cross the upper bound (if WallTimeUpperBound is set)
 	if c.mu.wallTimeUpperBound != 0 && c.mu.timestamp.WallTime > c.mu.wallTimeUpperBound {
 		log.Fatalf(
-			context.TODO(),
 			"wall time %d is not allowed to be greater than upper bound of %d.",
 			c.mu.timestamp.WallTime,
 			c.mu.wallTimeUpperBound,

@@ -26,10 +26,11 @@ import (
 	"github.com/auxten/postgresql-parser/pkg/sql/lex"
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgcode"
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgerror"
-	//"github.com/auxten/postgresql-parser/pkg/sql/roleoption"
-	"github.com/auxten/postgresql-parser/pkg/sql/types"
 	"github.com/cockroachdb/errors"
 	"golang.org/x/text/language"
+
+	//"github.com/auxten/postgresql-parser/pkg/sql/roleoption"
+	"github.com/auxten/postgresql-parser/pkg/sql/types"
 )
 
 // CreateDatabase represents a CREATE DATABASE statement.

@@ -22,10 +22,10 @@ package tree
 import (
 	"fmt"
 
+	"github.com/cockroachdb/errors"
+
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgcode"
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgerror"
-	"log"
-	"github.com/cockroachdb/errors"
 )
 
 // SelectStatement represents any SELECT statement.
@@ -903,7 +903,8 @@ func (node *WindowFrameBound) Format(ctx *FmtCtx) {
 	case UnboundedFollowing:
 		ctx.WriteString("UNBOUNDED FOLLOWING")
 	default:
-		panic(errors.AssertionFailedf("unhandled case: %d", log.Safe(node.BoundType)))
+		//panic(errors.AssertionFailedf("unhandled case: %d", log.Safe(node.BoundType)))
+		panic(errors.AssertionFailedf("unhandled case: %d", node.BoundType))
 	}
 }
 
@@ -921,7 +922,8 @@ func (node WindowFrameExclusion) Format(ctx *FmtCtx) {
 	case ExcludeTies:
 		ctx.WriteString("TIES")
 	default:
-		panic(errors.AssertionFailedf("unhandled case: %d", log.Safe(node)))
+		//panic(errors.AssertionFailedf("unhandled case: %d", log.Safe(node)))
+		panic(errors.AssertionFailedf("unhandled case: %d", node))
 	}
 }
 
@@ -935,7 +937,8 @@ func WindowModeName(mode WindowFrameMode) string {
 	case GROUPS:
 		return "GROUPS"
 	default:
-		panic(errors.AssertionFailedf("unhandled case: %d", log.Safe(mode)))
+		//panic(errors.AssertionFailedf("unhandled case: %d", log.Safe(mode)))
+		panic(errors.AssertionFailedf("unhandled case: %d", mode))
 	}
 }
 

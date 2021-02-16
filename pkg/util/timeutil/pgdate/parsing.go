@@ -13,10 +13,11 @@ package pgdate
 import (
 	"time"
 
+	"github.com/cockroachdb/errors"
+
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgcode"
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgerror"
 	"github.com/auxten/postgresql-parser/pkg/util/timeutil"
-	"github.com/cockroachdb/errors"
 )
 
 // Various keywords that appear in timestamps.

@@ -216,12 +216,12 @@ func (m *Error) MarshalTo(dAtA []byte) (int, error) {
 		}
 		i += n1
 	}
-	if len(m.TelemetryKey) > 0 {
-		dAtA[i] = 0x32
-		i++
-		i = encodeVarintErrors(dAtA, i, uint64(len(m.TelemetryKey)))
-		i += copy(dAtA[i:], m.TelemetryKey)
-	}
+	//if len(m.TelemetryKey) > 0 {
+	//	dAtA[i] = 0x32
+	//	i++
+	//	i = encodeVarintErrors(dAtA, i, uint64(len(m.TelemetryKey)))
+	//	i += copy(dAtA[i:], m.TelemetryKey)
+	//}
 	if len(m.SafeDetail) > 0 {
 		for _, msg := range m.SafeDetail {
 			dAtA[i] = 0x3a
@@ -337,10 +337,10 @@ func (m *Error) Size() (n int) {
 		l = m.Source.Size()
 		n += 1 + l + sovErrors(uint64(l))
 	}
-	l = len(m.TelemetryKey)
-	if l > 0 {
-		n += 1 + l + sovErrors(uint64(l))
-	}
+	//l = len(m.TelemetryKey)
+	//if l > 0 {
+	//	n += 1 + l + sovErrors(uint64(l))
+	//}
 	if len(m.SafeDetail) > 0 {
 		for _, e := range m.SafeDetail {
 			l = e.Size()
@@ -605,7 +605,7 @@ func (m *Error) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.TelemetryKey = string(dAtA[iNdEx:postIndex])
+			//m.TelemetryKey = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 7:
 			if wireType != 2 {

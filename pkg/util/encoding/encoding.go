@@ -25,6 +25,8 @@ import (
 	"unsafe"
 
 	"github.com/cockroachdb/apd"
+	"github.com/cockroachdb/errors"
+
 	"github.com/auxten/postgresql-parser/pkg/util/bitarray"
 	"github.com/auxten/postgresql-parser/pkg/util/duration"
 	"github.com/auxten/postgresql-parser/pkg/util/ipaddr"
@@ -32,7 +34,6 @@ import (
 	"github.com/auxten/postgresql-parser/pkg/util/timetz"
 	"github.com/auxten/postgresql-parser/pkg/util/timeutil"
 	"github.com/auxten/postgresql-parser/pkg/util/uuid"
-	"github.com/cockroachdb/errors"
 )
 
 const (

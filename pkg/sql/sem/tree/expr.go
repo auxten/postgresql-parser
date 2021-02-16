@@ -15,12 +15,13 @@ import (
 	"fmt"
 	"strconv"
 
+	"github.com/cockroachdb/errors"
+
 	//"github.com/auxten/postgresql-parser/pkg/server/telemetry"
 	"github.com/auxten/postgresql-parser/pkg/sql/lex"
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgcode"
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgerror"
 	"github.com/auxten/postgresql-parser/pkg/sql/types"
-	"github.com/cockroachdb/errors"
 )
 
 // Expr represents an expression.
@@ -1302,10 +1303,10 @@ func (node *FuncExpr) ResolvedOverload() *Overload {
 	return node.fn
 }
 
-// IsGeneratorApplication returns true iff the function applied is a generator (SRF).
-func (node *FuncExpr) IsGeneratorApplication() bool {
-	return node.fn != nil && node.fn.Generator != nil
-}
+//// IsGeneratorApplication returns true iff the function applied is a generator (SRF).
+//func (node *FuncExpr) IsGeneratorApplication() bool {
+//	return node.fn != nil && node.fn.Generator != nil
+//}
 
 // IsWindowFunctionApplication returns true iff the function is being applied as a window function.
 func (node *FuncExpr) IsWindowFunctionApplication() bool {

@@ -17,10 +17,11 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgcode"
-	"github.com/auxten/postgresql-parser/pkg/util/stacktrace"
 	"github.com/cockroachdb/errors"
 	"github.com/lib/pq"
+
+	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgcode"
+	"github.com/auxten/postgresql-parser/pkg/util/stacktrace"
 )
 
 var _ error = (*Error)(nil)

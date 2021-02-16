@@ -15,12 +15,11 @@ import (
 	"fmt"
 	"math"
 
+	"github.com/cockroachdb/errors"
 	//"github.com/auxten/postgresql-parser/pkg/server/telemetry"
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgcode"
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgerror"
 	"github.com/auxten/postgresql-parser/pkg/sql/types"
-	"log"
-	"github.com/cockroachdb/errors"
 )
 
 // SpecializedVectorizedBuiltin is used to map overloads
@@ -65,7 +64,7 @@ type Overload struct {
 	AggregateFunc func([]*types.T, *EvalContext, Datums) AggregateFunc
 	WindowFunc    func([]*types.T, *EvalContext) WindowFunc
 	Fn            func(*EvalContext, Datums) (Datum, error)
-	Generator     GeneratorFactory
+	//Generator     GeneratorFactory
 
 	// counter, if non-nil, should be incremented upon successful
 	// type check of expressions using this overload.
@@ -830,9 +829,13 @@ func checkReturn(
 				)
 			}
 			if des != nil && !typ.ResolvedType().Equivalent(des) {
+				//return false, nil, nil, errors.AssertionFailedf(
+				//	"desired constant value type %s but set type %s",
+				//	log.Safe(des), log.Safe(typ.ResolvedType()),
+				//)
 				return false, nil, nil, errors.AssertionFailedf(
 					"desired constant value type %s but set type %s",
-					log.Safe(des), log.Safe(typ.ResolvedType()),
+					des, typ.ResolvedType(),
 				)
 			}
 			s.typedExprs[i] = typ

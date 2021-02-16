@@ -18,8 +18,9 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/auxten/postgresql-parser/pkg/util/timeutil"
 	"github.com/pkg/errors"
+
+	"github.com/auxten/postgresql-parser/pkg/util/timeutil"
 )
 
 // Timestamp constant values.

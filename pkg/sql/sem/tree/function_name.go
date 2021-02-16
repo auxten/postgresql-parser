@@ -13,9 +13,9 @@ package tree
 import (
 	"fmt"
 
-	"github.com/auxten/postgresql-parser/pkg/sql/sessiondata"
-	"log"
 	"github.com/cockroachdb/errors"
+
+	"github.com/auxten/postgresql-parser/pkg/sql/sessiondata"
 )
 
 // Function names are used in expressions in the FuncExpr node.
@@ -67,7 +67,10 @@ func (fn *ResolvableFunctionReference) Resolve(
 func WrapFunction(n string) ResolvableFunctionReference {
 	fd, ok := FunDefs[n]
 	if !ok {
-		panic(errors.AssertionFailedf("function %s() not defined", log.Safe(n)))
+		//panic(errors.AssertionFailedf("function %s() not defined", log.Safe(n)))
+		//panic(errors.AssertionFailedf("function %s() not defined", n))
+		prop := &FunctionProperties{}
+		fd = NewFunctionDefinition(n, prop, nil)
 	}
 	return ResolvableFunctionReference{fd}
 }

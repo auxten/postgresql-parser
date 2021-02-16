@@ -15,6 +15,7 @@ import (
 	"math"
 
 	"github.com/cockroachdb/apd"
+
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgcode"
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgerror"
 )

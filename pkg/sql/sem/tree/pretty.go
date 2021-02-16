@@ -14,10 +14,11 @@ import (
 	"bytes"
 	"strings"
 
+	"github.com/cockroachdb/errors"
+
 	"github.com/auxten/postgresql-parser/pkg/sql/types"
 	"github.com/auxten/postgresql-parser/pkg/util/json"
 	"github.com/auxten/postgresql-parser/pkg/util/pretty"
-	"github.com/cockroachdb/errors"
 )
 
 // This file contains methods that convert statements to pretty Docs (a tree

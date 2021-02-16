@@ -14,8 +14,9 @@ import (
 	crypto_rand "crypto/rand"
 	"encoding/binary"
 	"fmt"
-	"log" // Don't bring cockroach/util/log into this low-level package.
 	"math/rand"
+
+	log "github.com/sirupsen/logrus" // Don't bring cockroach/util/log into this low-level package.
 
 	"github.com/auxten/postgresql-parser/pkg/util/envutil"
 )

@@ -11,11 +11,10 @@
 package errorutil
 
 import (
-	"context"
 	"fmt"
 
 	//"github.com/auxten/postgresql-parser/pkg/settings"
-	"log"
+
 	"github.com/cockroachdb/errors"
 )
 

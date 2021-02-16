@@ -18,10 +18,11 @@ import (
 	"strings"
 	"text/tabwriter"
 
+	"github.com/cockroachdb/errors"
+
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgerror"
 	"github.com/auxten/postgresql-parser/pkg/sql/sem/tree"
 	"github.com/auxten/postgresql-parser/pkg/sql/sessiondata"
-	"github.com/cockroachdb/errors"
 
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgcode"
 )

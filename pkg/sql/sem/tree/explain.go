@@ -14,9 +14,10 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/cockroachdb/errors"
+
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgcode"
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgerror"
-	"github.com/cockroachdb/errors"
 )
 
 // Explain represents an EXPLAIN statement.

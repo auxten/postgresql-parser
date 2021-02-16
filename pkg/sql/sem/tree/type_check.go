@@ -20,13 +20,14 @@ import (
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgcode"
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgerror"
 	"github.com/auxten/postgresql-parser/pkg/sql/sessiondata"
+	"github.com/cockroachdb/errors"
+	"golang.org/x/text/language"
+
 	//"github.com/auxten/postgresql-parser/pkg/sql/sqltelemetry"
 	"github.com/auxten/postgresql-parser/pkg/sql/types"
 	"github.com/auxten/postgresql-parser/pkg/util/errorutil/unimplemented"
 	"github.com/auxten/postgresql-parser/pkg/util/hlc"
 	"github.com/auxten/postgresql-parser/pkg/util/timeutil"
-	"github.com/cockroachdb/errors"
-	"golang.org/x/text/language"
 )
 
 // SemaContext defines the context in which to perform semantic analysis on an

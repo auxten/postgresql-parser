@@ -26,12 +26,13 @@ package main
 
 import (
 	"bufio"
-	"log"
 	"os"
 	"regexp"
 	"sort"
 	"strings"
 	"text/template"
+
+	log "github.com/sirupsen/logrus"
 )
 
 func main() {

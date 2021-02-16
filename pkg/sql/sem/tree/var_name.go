@@ -11,8 +11,9 @@
 package tree
 
 import (
-	"github.com/auxten/postgresql-parser/pkg/sql/types"
 	"github.com/cockroachdb/errors"
+
+	"github.com/auxten/postgresql-parser/pkg/sql/types"
 )
 
 // VarName occurs inside scalar expressions.

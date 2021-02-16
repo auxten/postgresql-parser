@@ -21,8 +21,8 @@ import (
 	"context"
 	"os"
 
-	"log"
 	"github.com/cockroachdb/errors"
+	log "github.com/sirupsen/logrus"
 )
 
 // ClockSource contains the handle of the clock device as well as the

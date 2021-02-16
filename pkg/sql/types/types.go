@@ -13,14 +13,14 @@ package types
 import (
 	"bytes"
 	"fmt"
-	"regexp"
 	"strings"
+
+	"github.com/cockroachdb/errors"
+	"github.com/lib/pq/oid"
 
 	"github.com/auxten/postgresql-parser/pkg/sql/lex"
 	"github.com/auxten/postgresql-parser/pkg/util/errorutil/unimplemented"
 	"github.com/auxten/postgresql-parser/pkg/util/protoutil"
-	"github.com/cockroachdb/errors"
-	"github.com/lib/pq/oid"
 )
 
 // T is an instance of a SQL scalar, array, or tuple type. It describes the

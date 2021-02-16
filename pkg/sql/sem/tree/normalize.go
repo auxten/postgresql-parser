@@ -11,9 +11,10 @@
 package tree
 
 import (
+	"github.com/cockroachdb/errors"
+
 	"github.com/auxten/postgresql-parser/pkg/sql/types"
 	"github.com/auxten/postgresql-parser/pkg/util/json"
-	"github.com/cockroachdb/errors"
 )
 
 type normalizableExpr interface {

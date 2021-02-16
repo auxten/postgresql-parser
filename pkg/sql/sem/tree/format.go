@@ -15,10 +15,11 @@ import (
 	"fmt"
 	"sync"
 
+	"github.com/cockroachdb/errors"
+
 	"github.com/auxten/postgresql-parser/pkg/sql/lex"
 	"github.com/auxten/postgresql-parser/pkg/sql/types"
 	"github.com/auxten/postgresql-parser/pkg/util"
-	"github.com/cockroachdb/errors"
 )
 
 // FmtFlags carries options for the pretty-printer.

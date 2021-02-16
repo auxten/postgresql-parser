@@ -15,10 +15,11 @@ import (
 	"fmt"
 	"math"
 
+	"github.com/cockroachdb/errors"
+
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgcode"
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgerror"
 	"github.com/auxten/postgresql-parser/pkg/sql/types"
-	"github.com/cockroachdb/errors"
 )
 
 // PlaceholderIdx is the 0-based index of a placeholder. Placeholder "$1"

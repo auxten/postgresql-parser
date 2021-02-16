@@ -12,9 +12,8 @@ package pgdate
 
 import (
 	"fmt"
-	"time"
-
 	"sync"
+	"time"
 )
 
 // zoneCache stores the results of resolving time.Location instances.

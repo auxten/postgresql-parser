@@ -14,9 +14,10 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgcode"
 	"github.com/cockroachdb/errors"
 	"github.com/gogo/protobuf/proto"
+
+	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgcode"
 )
 
 type withCandidateCode struct {

@@ -20,11 +20,11 @@ import (
 
 	"github.com/auxten/postgresql-parser/pkg/sql/parser"
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgerror"
-	_ "github.com/auxten/postgresql-parser/pkg/sql/sem/builtins"
+	//_ "github.com/auxten/postgresql-parser/pkg/sql/sem/builtins"
 	"github.com/auxten/postgresql-parser/pkg/sql/sem/tree"
 	"github.com/auxten/postgresql-parser/pkg/testutils"
 	"github.com/auxten/postgresql-parser/pkg/testutils/sqlutils"
-	_ "github.com/auxten/postgresql-parser/pkg/util/log" // for flags
+	//_ "github.com/auxten/postgresql-parser/pkg/util/log" // for flags
 	"github.com/cockroachdb/errors"
 	"github.com/stretchr/testify/assert"
 )
@@ -3357,17 +3357,17 @@ func TestUnimplementedSyntax(t *testing.T) {
 				assert.Contains(t, hints, d.hint)
 			}
 			if d.issue != 0 {
-				exp := fmt.Sprintf("syntax.#%d", d.issue)
+				//exp := fmt.Sprintf("syntax.#%d", d.issue)
 				found := false
-				for _, tk := range tkeys {
-					if strings.HasPrefix(tk, exp) {
-						found = true
-						break
-					}
-				}
-				if !found {
-					t.Errorf("%s: expected %q in telemetry keys, got %+v", d.sql, exp, tkeys)
-				}
+				//for _, tk := range tkeys {
+				//	if strings.HasPrefix(tk, exp) {
+				//		found = true
+				//		break
+				//	}
+				//}
+				//if !found {
+				//	t.Errorf("%s: expected %q in telemetry keys, got %+v", d.sql, exp, tkeys)
+				//}
 
 				exp2 := fmt.Sprintf("issue-v/%d", d.issue)
 				found = false

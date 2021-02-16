@@ -16,9 +16,10 @@ import (
 	"math/rand"
 	"unsafe"
 
+	"github.com/cockroachdb/errors"
+
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgcode"
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgerror"
-	"github.com/cockroachdb/errors"
 )
 
 // BitArray implements a bit string of arbitrary length.

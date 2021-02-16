@@ -870,7 +870,8 @@ BUILD_TAGGED_RELEASE =
 BUILDINFO_TAG :=
 
 $(go-targets): $(BUILDINFO) $(CGO_FLAGS_FILES) $(PROTOBUF_TARGETS)
-$(go-targets): $(SQLPARSER_TARGETS) $(EXECGEN_TARGETS) $(OPTGEN_TARGETS)
+#$(go-targets): $(SQLPARSER_TARGETS) $(EXECGEN_TARGETS) $(OPTGEN_TARGETS)
+$(go-targets): $(SQLPARSER_TARGETS) $(OPTGEN_TARGETS)
 $(go-targets): override LINKFLAGS += \
 	-X "github.com/cockroachdb/cockroach/pkg/build.tag=$(if $(BUILDINFO_TAG),$(BUILDINFO_TAG),$(shell cat .buildinfo/tag))" \
 	-X "github.com/cockroachdb/cockroach/pkg/build.rev=$(shell cat .buildinfo/rev)" \

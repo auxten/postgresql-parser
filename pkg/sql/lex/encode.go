@@ -26,10 +26,11 @@ import (
 	"fmt"
 	"unicode/utf8"
 
+	"github.com/cockroachdb/errors"
+
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgerror"
 	"github.com/auxten/postgresql-parser/pkg/sql/sessiondata"
 	"github.com/auxten/postgresql-parser/pkg/util/stringencoding"
-	"github.com/cockroachdb/errors"
 
 	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgcode"
 )

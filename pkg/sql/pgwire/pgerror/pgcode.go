@@ -13,8 +13,9 @@ package pgerror
 import (
 	"strings"
 
-	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgcode"
 	"github.com/cockroachdb/errors"
+
+	"github.com/auxten/postgresql-parser/pkg/sql/pgwire/pgcode"
 )
 
 // WithCandidateCode decorates the error with a candidate postgres

@@ -15,9 +15,9 @@ import (
 	"fmt"
 	"sort"
 	"strconv"
+	"sync"
 	"unsafe"
 
-	"sync"
 	"github.com/cockroachdb/errors"
 )
 
