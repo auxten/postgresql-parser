@@ -49,7 +49,6 @@ func MakeClockSource(ctx context.Context, clockDevicePath string) (ClockSource, 
 	// https://github.com/torvalds/linux/blob/7e63420847ae5f1036e4f7c42f0b3282e73efbc2/tools/testing/selftests/ptp/testptp.c#L87
 	clockID := (^clockDeviceFD << 3) | 3
 	log.Infof(
-		ctx,
 		"opened clock device %s with fd %d, mod_fd %x",
 		clockDevicePath,
 		clockDeviceFD,
