@@ -16,9 +16,21 @@ To make things easy, I did these things:
 7. Remove the `panic` of meeting unregistried functions, see the [WrapFunction](pkg/sql/sem/tree/function_name.go#L67)
 8. Other nasty things make the parser just work that I forgot :p
 
+
+
 # Features
 - Pure golang implementation
 - *Almost* full support of PostgreSQL (`cockroachdb` style PostgreSQL)
+
+## SQL Standard Compliance
+
+The code is derived from CockroachDB v20.1.11 which supports most of the major features of SQL:2011. See:
+
+- https://www.cockroachlabs.com/docs/v20.1/postgresql-compatibility
+
+- https://www.postgresql.org/docs/9.5/features.html
+
+
 
 ### 🚧🚧🚧 still under construction 🚧🚧🚧
 
