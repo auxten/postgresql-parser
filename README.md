@@ -63,8 +63,8 @@ func main() {
 ### 🚧🚧🚧 still under construction 🚧🚧🚧
 
 # Progress
-- 2020-02-16 `github.com/auxten/postgresql-parser/pkg/sql/parser` Unit tests works now!
-- 2020-03-08 Add walker package.
+- 2021-02-16 `github.com/auxten/postgresql-parser/pkg/sql/parser` Unit tests works now!
+- 2021-03-08 Add walker package.
 
 # Todo
 - Fix more unit tests
