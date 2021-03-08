@@ -30,12 +30,41 @@ The code is derived from CockroachDB v20.1.11 which supports most of the major f
 
 - https://www.postgresql.org/docs/9.5/features.html
 
+# How to use
 
+```go
+package main
+
+import (
+	"log"
+
+	"github.com/auxten/postgresql-parser/pkg/walk"
+)
+
+func main() {
+	sql := `select marr
+			from (select marr_stat_cd AS marr, label AS l
+				  from root_loan_mock_v4
+				  order by root_loan_mock_v4.age desc, l desc
+				  limit 5) as v4
+			LIMIT 1;`
+	w := &walk.AstWalker{
+		Fn: func(ctx interface{}, node interface{}) (stop bool) {
+			log.Printf("node type %T", node)
+			return false
+		},
+	}
+	_, _ = w.Walk(sql, nil)
+	return
+}
+
+```
 
 ### 🚧🚧🚧 still under construction 🚧🚧🚧
 
 # Progress
 - 2020-02-16 `github.com/auxten/postgresql-parser/pkg/sql/parser` Unit tests works now!
+- 2020-03-08 Add walker package.
 
 # Todo
 - Fix more unit tests
