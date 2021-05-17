@@ -1,5 +1,5 @@
 # What's this
-PostgreSQL style Parser splitted from [CockroachDB](github.com/cockroachdb/cockroach)
+PostgreSQL style Parser splitted from [CockroachDB](https://github.com/cockroachdb/cockroach)
 
 See: [Complex SQL format example](example/format.go)
 
