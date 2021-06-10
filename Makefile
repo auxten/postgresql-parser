@@ -227,25 +227,6 @@ TAR     ?= tar
 # Ensure we have an unambiguous GOPATH.
 GOPATH := $(shell $(GO) env GOPATH)
 
-ifneq "$(or $(findstring :,$(GOPATH)),$(findstring ;,$(GOPATH)))" ""
-$(error GOPATHs with multiple entries are not supported)
-endif
-
-GOPATH := $(realpath $(GOPATH))
-ifeq "$(strip $(GOPATH))" ""
-$(error GOPATH is not set and could not be automatically determined)
-endif
-
-ifeq "$(filter $(GOPATH)%,$(CURDIR))" ""
-$(error Current directory "$(CURDIR)" is not within GOPATH "$(GOPATH)")
-endif
-
-ifeq "$(GOPATH)" "/"
-$(error GOPATH=/ is not supported)
-endif
-
-$(info GOPATH set to $(GOPATH))
-
 # We install our vendored tools to a directory within this repository to avoid
 # overwriting any user-installed binaries of the same name in the default GOBIN.
 GO_INSTALL := GOBIN='$(abspath bin)' GOFLAGS= $(GO) install
