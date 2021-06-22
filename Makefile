@@ -1418,7 +1418,7 @@ pkg/sql/lex/reserved_keywords.go: pkg/sql/parser/sql.y pkg/sql/parser/reserved_k
 	gofmt -s -w $@
 
 pkg/sql/lex/keywords.go: pkg/sql/parser/sql.y pkg/sql/lex/all_keywords.go | bin/.bootstrap
-	go run -tags all-keywords pkg/sql/lex/all_keywords.go < $< > $@.tmp || rm $@.tmp
+	go run -tags all_keywords pkg/sql/lex/all_keywords.go < $< > $@.tmp || rm $@.tmp
 	mv -f $@.tmp $@
 	gofmt -s -w $@
 
