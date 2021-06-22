@@ -29,11 +29,11 @@ import (
 
     "go/constant"
 
-    "github.com/cockroachdb/cockroach/pkg/sql/lex"
-    "github.com/cockroachdb/cockroach/pkg/sql/privilege"
-    "github.com/cockroachdb/cockroach/pkg/sql/roleoption"
-    "github.com/cockroachdb/cockroach/pkg/sql/sem/tree"
-    "github.com/cockroachdb/cockroach/pkg/sql/types"
+    "github.com/auxten/postgresql-parser/pkg/sql/lex"
+    "github.com/auxten/postgresql-parser/pkg/sql/privilege"
+    "github.com/auxten/postgresql-parser/pkg/sql/roleoption"
+    "github.com/auxten/postgresql-parser/pkg/sql/sem/tree"
+    "github.com/auxten/postgresql-parser/pkg/sql/types"
 )
 
 
