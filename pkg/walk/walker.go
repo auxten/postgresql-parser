@@ -27,11 +27,7 @@ func (rc ReferredCols) ToList() []string {
 	return cols
 }
 
-func (w *AstWalker) Walk(sql string, ctx interface{}) (ok bool, err error) {
-	stmts, err := parser.Parse(sql)
-	if err != nil {
-		return false, err
-	}
+func (w *AstWalker) Walk(stmts parser.Statements, ctx interface{}) (ok bool, err error) {
 
 	w.unknownNodes = make([]interface{}, 0)
 	asts := make([]tree.NodeFormatter, len(stmts))
@@ -67,6 +63,8 @@ func (w *AstWalker) Walk(sql string, ctx interface{}) (ok bool, err error) {
 				walk(node.Expr)
 			case *tree.Array:
 				walk(node.Exprs)
+			case tree.AsOfClause:
+				walk(node.Expr)
 			case *tree.BinaryExpr:
 				walk(node.Left, node.Right)
 			case *tree.CaseExpr:
@@ -127,7 +125,6 @@ func (w *AstWalker) Walk(sql string, ctx interface{}) (ok bool, err error) {
 				if node.With != nil {
 					walk(node.With)
 				}
-				walk(node.Select)
 				if node.OrderBy != nil {
 					for _, order := range node.OrderBy {
 						walk(order)
@@ -136,6 +133,7 @@ func (w *AstWalker) Walk(sql string, ctx interface{}) (ok bool, err error) {
 				if node.Limit != nil {
 					walk(node.Limit)
 				}
+				walk(node.Select)
 			case *tree.Order:
 				walk(node.Expr, node.Table)
 			case *tree.Limit:
@@ -148,9 +146,6 @@ func (w *AstWalker) Walk(sql string, ctx interface{}) (ok bool, err error) {
 				if node.Having != nil {
 					walk(node.Having)
 				}
-				for _, table := range node.From.Tables {
-					walk(table)
-				}
 				if node.DistinctOn != nil {
 					for _, distinct := range node.DistinctOn {
 						walk(distinct)
@@ -160,6 +155,10 @@ func (w *AstWalker) Walk(sql string, ctx interface{}) (ok bool, err error) {
 					for _, group := range node.GroupBy {
 						walk(group)
 					}
+				}
+				walk(node.From.AsOf)
+				for _, table := range node.From.Tables {
+					walk(table)
 				}
 			case tree.SelectExpr:
 				walk(node.Expr)
@@ -192,6 +191,10 @@ func (w *AstWalker) Walk(sql string, ctx interface{}) (ok bool, err error) {
 				}
 			case *tree.Where:
 				walk(node.Expr)
+			case tree.Window:
+				for _, windowDef := range node {
+					walk(windowDef)
+				}
 			case *tree.WindowDef:
 				walk(node.Partitions)
 				if node.Frame != nil {
@@ -206,13 +209,14 @@ func (w *AstWalker) Walk(sql string, ctx interface{}) (ok bool, err error) {
 				}
 			case *tree.WindowFrameBound:
 				walk(node.OffsetExpr)
-			case *tree.Window:
 			case *tree.With:
 				for _, expr := range node.CTEList {
 					walk(expr)
 				}
 			default:
-				w.unknownNodes = append(w.unknownNodes, node)
+				if w.unknownNodes != nil {
+					w.unknownNodes = append(w.unknownNodes, node)
+				}
 			}
 		}
 	}
@@ -257,7 +261,15 @@ func ColNamesInSelect(sql string) (referredCols ReferredCols, err error) {
 			return false
 		},
 	}
-	_, err = w.Walk(sql, referredCols)
+	stmts, err := parser.Parse(sql)
+	if err != nil {
+		return
+	}
+
+	_, err = w.Walk(stmts, referredCols)
+	if err != nil {
+		return
+	}
 	for _, col := range w.unknownNodes {
 		log.Printf("unhandled column type %T", col)
 	}

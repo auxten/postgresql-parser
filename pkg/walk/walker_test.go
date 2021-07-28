@@ -195,7 +195,7 @@ func TestReferredVarsInSelectStatement(t *testing.T) {
 			referredCols, err := func() (ReferredCols, error) {
 				return ColNamesInSelect(tc.sql)
 			}()
-			if err.Error() != tc.err.Error() {
+			if err != nil && err.Error() != tc.err.Error() {
 				t.Errorf("Expect %s, got %s", tc.err, err)
 			}
 			cols := referredCols.ToList()
