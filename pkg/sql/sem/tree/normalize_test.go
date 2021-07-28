@@ -11,13 +11,13 @@
 package tree_test
 
 import (
-	"context"
 	"testing"
 
-	"github.com/auxten/postgresql-parser/pkg/settings/cluster"
+	//"github.com/auxten/postgresql-parser/pkg/settings/cluster"
 	"github.com/auxten/postgresql-parser/pkg/sql/parser"
-	_ "github.com/auxten/postgresql-parser/pkg/sql/sem/builtins"
+	//_ "github.com/auxten/postgresql-parser/pkg/sql/sem/builtins"
 	"github.com/auxten/postgresql-parser/pkg/sql/sem/tree"
+	"github.com/auxten/postgresql-parser/pkg/sql/sessiondata"
 	"github.com/auxten/postgresql-parser/pkg/sql/types"
 	"github.com/auxten/postgresql-parser/pkg/util/leaktest"
 )
@@ -176,28 +176,28 @@ func TestNormalizeExpr(t *testing.T) {
 		{`b+c<=1+1`, `(b + c) <= 2`},
 		{`a/2=1`, `a = 2`},
 		{`1=a/2`, `a = 2`},
-		{`s=lower('FOO')`, `s = 'foo'`},
-		{`lower(s)='foo'`, `lower(s) = 'foo'`},
-		{`random()`, `random()`},
-		{`gen_random_uuid()`, `gen_random_uuid()`},
-		{`current_date()`, `current_date()`},
-		{`clock_timestamp()`, `clock_timestamp()`},
-		{`now()`, `now()`},
-		{`current_timestamp()`, `current_timestamp()`},
-		{`current_timestamp(5)`, `current_timestamp(5)`},
-		{`transaction_timestamp()`, `transaction_timestamp()`},
-		{`statement_timestamp()`, `statement_timestamp()`},
-		{`cluster_logical_timestamp()`, `cluster_logical_timestamp()`},
-		{`clock_timestamp()`, `clock_timestamp()`},
-		{`crdb_internal.force_error('a', 'b')`, `crdb_internal.force_error('a', 'b')`},
-		{`crdb_internal.force_panic('a')`, `crdb_internal.force_panic('a')`},
-		{`crdb_internal.force_log_fatal('a')`, `crdb_internal.force_log_fatal('a')`},
-		{`crdb_internal.force_retry('1 day'::interval)`, `crdb_internal.force_retry('1 day')`},
-		{`crdb_internal.no_constant_folding(123)`, `crdb_internal.no_constant_folding(123)`},
-		{`crdb_internal.set_vmodule('a')`, `crdb_internal.set_vmodule('a')`},
-		{`uuid_v4()`, `uuid_v4()`},
-		{`experimental_uuid_v4()`, `experimental_uuid_v4()`},
-		{`a=count('FOO') OVER ()`, `a = count('FOO') OVER ()`},
+		//{`s=lower('FOO')`, `s = 'foo'`},
+		//{`lower(s)='foo'`, `lower(s) = 'foo'`},
+		//{`random()`, `random()`},
+		//{`gen_random_uuid()`, `gen_random_uuid()`},
+		//{`current_date()`, `current_date()`},
+		//{`clock_timestamp()`, `clock_timestamp()`},
+		//{`now()`, `now()`},
+		//{`current_timestamp()`, `current_timestamp()`},
+		//{`current_timestamp(5)`, `current_timestamp(5)`},
+		//{`transaction_timestamp()`, `transaction_timestamp()`},
+		//{`statement_timestamp()`, `statement_timestamp()`},
+		//{`cluster_logical_timestamp()`, `cluster_logical_timestamp()`},
+		//{`clock_timestamp()`, `clock_timestamp()`},
+		//{`crdb_internal.force_error('a', 'b')`, `crdb_internal.force_error('a', 'b')`},
+		//{`crdb_internal.force_panic('a')`, `crdb_internal.force_panic('a')`},
+		//{`crdb_internal.force_log_fatal('a')`, `crdb_internal.force_log_fatal('a')`},
+		//{`crdb_internal.force_retry('1 day'::interval)`, `crdb_internal.force_retry('1 day')`},
+		//{`crdb_internal.no_constant_folding(123)`, `crdb_internal.no_constant_folding(123)`},
+		//{`crdb_internal.set_vmodule('a')`, `crdb_internal.set_vmodule('a')`},
+		//{`uuid_v4()`, `uuid_v4()`},
+		//{`experimental_uuid_v4()`, `experimental_uuid_v4()`},
+		//{`a=count('FOO') OVER ()`, `a = count('FOO') OVER ()`},
 		{`9223372036854775808`, `9223372036854775808`},
 		{`-9223372036854775808`, `-9223372036854775808`},
 		{`(1, 2, 3) = (1, 2, 3)`, `true`},
@@ -246,10 +246,10 @@ func TestNormalizeExpr(t *testing.T) {
 		{`NULL IS NOT DISTINCT FROM d`, `d IS NULL`},
 		{`NULL IS DISTINCT FROM d`, `d IS NOT NULL`},
 		// #15454: ensure that operators are pretty-printed correctly after normalization.
-		{`(random() + 1.0)::INT8`, `(random() + 1.0)::INT8`},
-		{`('a' || left('b', random()::INT8)) COLLATE en`, `('a' || left('b', random()::INT8)) COLLATE en`},
+		//{`(random() + 1.0)::INT8`, `(random() + 1.0)::INT8`},
+		//{`('a' || left('b', random()::INT8)) COLLATE en`, `('a' || left('b', random()::INT8)) COLLATE en`},
 		{`NULL COLLATE en`, `CAST(NULL AS STRING) COLLATE en`},
-		{`(1.0 + random()) IS OF (INT8)`, `(1.0 + random()) IS OF (INT8)`},
+		//{`(1.0 + random()) IS OF (INT8)`, `(1.0 + random()) IS OF (INT8)`},
 		// #14687: ensure that negative divisors flip the inequality when rotating.
 		{`1 < a / -2`, `a < -2`},
 		{`1 <= a / -2`, `a <= -2`},
@@ -288,8 +288,12 @@ func TestNormalizeExpr(t *testing.T) {
 				t.Fatalf("%s: %v", d.expr, err)
 			}
 			rOrig := typedExpr.String()
-			ctx := tree.NewTestingEvalContext(cluster.MakeTestingClusterSettings())
-			defer ctx.Mon.Stop(context.Background())
+			//ctx := tree.NewTestingEvalContext(cluster.MakeTestingClusterSettings())
+			ctx := tree.EvalContext{
+				SessionData: &sessiondata.SessionData{},
+			}
+
+			//defer ctx.Mon.Stop(context.Background())
 			r, err := ctx.NormalizeExpr(typedExpr)
 			if err != nil {
 				t.Fatalf("%s: %v", d.expr, err)
