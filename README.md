@@ -60,6 +60,16 @@ func main() {
 
 ```
 
+# SQL parser
+
+This project contains code that is automatically generated using `goyacc`.
+`goyacc` reads the SQL expressions ([`sql.y`](https://github.com/auxten/postgresql-parser/blob/main/pkg/sql/parser/sql.y)) and generates a parser which could be used to tokenize a given input.
+You could update the generated code using the `generate` target inside the project's Makefile.
+
+```bash
+$ make generate
+```
+
 ### 🚧🚧🚧 still under construction 🚧🚧🚧
 
 # Progress
