@@ -1,7 +1,7 @@
 # What's this
 PostgreSQL style Parser splitted from [CockroachDB](https://github.com/cockroachdb/cockroach)
 
-See: [Complex SQL format example](example/format.go)
+See: [Complex SQL format example](example/format/format.go)
 
 I tried to import `github.com/cockroachdb/cockroach/pkg/sql/parser`, but the dependencies is too complex to make it work. 
 
