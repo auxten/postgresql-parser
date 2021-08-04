@@ -70,8 +70,6 @@ You could update the generated code using the `generate` target inside the proje
 $ make generate
 ```
 
-### 🚧🚧🚧 still under construction 🚧🚧🚧
-
 # Progress
 - 2021-02-16 `github.com/auxten/postgresql-parser/pkg/sql/parser` Unit tests works now!
 - 2021-03-08 Add walker package.
