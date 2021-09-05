@@ -34,25 +34,6 @@ func TestParser(t *testing.T) {
 	})
 }
 
-func allColsContained(set ReferredCols, cols []string) bool {
-	if cols == nil {
-		if set == nil {
-			return true
-		} else {
-			return false
-		}
-	}
-	if len(set) != len(cols) {
-		return false
-	}
-	for _, col := range cols {
-		if _, exist := set[col]; !exist {
-			return false
-		}
-	}
-	return true
-}
-
 func TestReferredVarsInSelectStatement(t *testing.T) {
 	testCases := []struct {
 		sql  string
@@ -191,7 +172,7 @@ func TestReferredVarsInSelectStatement(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		t.Run(tc.sql,  func(t *testing.T) {
+		t.Run(tc.sql, func(t *testing.T) {
 			referredCols, err := func() (ReferredCols, error) {
 				return ColNamesInSelect(tc.sql)
 			}()

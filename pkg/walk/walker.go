@@ -3,15 +3,15 @@ package walk
 import (
 	"fmt"
 	"log"
-	"sort"
 	"strings"
 
 	"github.com/auxten/postgresql-parser/pkg/sql/parser"
 	"github.com/auxten/postgresql-parser/pkg/sql/sem/tree"
+	"github.com/auxten/postgresql-parser/pkg/util/set"
 )
 
 type AstWalker struct {
-	unknownNodes []interface{}
+	UnknownNodes []interface{}
 	Fn           func(ctx interface{}, node interface{}) (stop bool)
 }
 type ReferredCols map[string]int
@@ -19,17 +19,16 @@ type ReferredCols map[string]int
 func (rc ReferredCols) ToList() []string {
 	cols := make([]string, len(rc))
 	i := 0
-	for k, _ := range rc {
+	for k := range rc {
 		cols[i] = k
 		i++
 	}
-	sort.Strings(cols)
-	return cols
+	return set.SortDeDup(cols)
 }
 
 func (w *AstWalker) Walk(stmts parser.Statements, ctx interface{}) (ok bool, err error) {
 
-	w.unknownNodes = make([]interface{}, 0)
+	w.UnknownNodes = make([]interface{}, 0)
 	asts := make([]tree.NodeFormatter, len(stmts))
 	for si, stmt := range stmts {
 		asts[si] = stmt.AST
@@ -69,8 +68,8 @@ func (w *AstWalker) Walk(stmts parser.Statements, ctx interface{}) (ok bool, err
 				walk(node.Left, node.Right)
 			case *tree.CaseExpr:
 				walk(node.Expr, node.Else)
-				for _, w := range node.Whens {
-					walk(w.Cond, w.Val)
+				for _, when := range node.Whens {
+					walk(when.Cond, when.Val)
 				}
 			case *tree.RangeCond:
 				walk(node.Left, node.From, node.To)
@@ -98,6 +97,11 @@ func (w *AstWalker) Walk(stmts parser.Statements, ctx interface{}) (ok bool, err
 					walk(expr)
 				}
 			case *tree.FamilyTableDef:
+			case *tree.From:
+				walk(node.AsOf)
+				for _, table := range node.Tables {
+					walk(table)
+				}
 			case *tree.FuncExpr:
 				if node.WindowDef != nil {
 					walk(node.WindowDef)
@@ -111,6 +115,12 @@ func (w *AstWalker) Walk(stmts parser.Statements, ctx interface{}) (ok bool, err
 			case *tree.NumVal:
 			case *tree.OnJoinCond:
 				walk(node.Expr)
+			case *tree.Order:
+				walk(node.Expr, node.Table)
+			case tree.OrderBy:
+				for _, order := range node {
+					walk(order)
+				}
 			case *tree.OrExpr:
 				walk(node.Left, node.Right)
 			case *tree.ParenExpr:
@@ -126,16 +136,12 @@ func (w *AstWalker) Walk(stmts parser.Statements, ctx interface{}) (ok bool, err
 					walk(node.With)
 				}
 				if node.OrderBy != nil {
-					for _, order := range node.OrderBy {
-						walk(order)
-					}
+					walk(node.OrderBy)
 				}
 				if node.Limit != nil {
 					walk(node.Limit)
 				}
 				walk(node.Select)
-			case *tree.Order:
-				walk(node.Expr, node.Table)
 			case *tree.Limit:
 				walk(node.Count)
 			case *tree.SelectClause:
@@ -156,10 +162,7 @@ func (w *AstWalker) Walk(stmts parser.Statements, ctx interface{}) (ok bool, err
 						walk(group)
 					}
 				}
-				walk(node.From.AsOf)
-				for _, table := range node.From.Tables {
-					walk(table)
-				}
+				walk(&node.From)
 			case tree.SelectExpr:
 				walk(node.Expr)
 			case tree.SelectExprs:
@@ -173,6 +176,10 @@ func (w *AstWalker) Walk(stmts parser.Statements, ctx interface{}) (ok bool, err
 			case *tree.StrVal:
 			case *tree.Subquery:
 				walk(node.Select)
+			case tree.TableExprs:
+				for _, expr := range node {
+					walk(expr)
+				}
 			case *tree.TableName, tree.TableName:
 			case *tree.Tuple:
 				for _, expr := range node.Exprs {
@@ -214,8 +221,8 @@ func (w *AstWalker) Walk(stmts parser.Statements, ctx interface{}) (ok bool, err
 					walk(expr)
 				}
 			default:
-				if w.unknownNodes != nil {
-					w.unknownNodes = append(w.unknownNodes, node)
+				if w.UnknownNodes != nil {
+					w.UnknownNodes = append(w.UnknownNodes, node)
 				}
 			}
 		}
@@ -270,8 +277,27 @@ func ColNamesInSelect(sql string) (referredCols ReferredCols, err error) {
 	if err != nil {
 		return
 	}
-	for _, col := range w.unknownNodes {
+	for _, col := range w.UnknownNodes {
 		log.Printf("unhandled column type %T", col)
 	}
 	return
+}
+
+func AllColsContained(set ReferredCols, cols []string) bool {
+	if cols == nil {
+		if set == nil {
+			return true
+		} else {
+			return false
+		}
+	}
+	if len(set) != len(cols) {
+		return false
+	}
+	for _, col := range cols {
+		if _, exist := set[col]; !exist {
+			return false
+		}
+	}
+	return true
 }
