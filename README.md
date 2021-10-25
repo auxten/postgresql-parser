@@ -37,7 +37,8 @@ package main
 
 import (
 	"log"
-
+	
+	"github.com/auxten/postgresql-parser/pkg/sql/parser"
 	"github.com/auxten/postgresql-parser/pkg/walk"
 )
 
@@ -54,7 +55,13 @@ func main() {
 			return false
 		},
 	}
-	_, _ = w.Walk(sql, nil)
+	
+	stmts, err := parser.Parse(sql)
+	if err != nil {
+		return
+	}
+	
+	_, _ = w.Walk(stmts, nil)
 	return
 }
 
