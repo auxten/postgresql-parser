@@ -1011,7 +1011,7 @@ func (t *T) Name() string {
 	case BoolFamily:
 		return "bool"
 	case BytesFamily:
-		return "bytes"
+		return "bytea"
 	case DateFamily:
 		return "date"
 	case DecimalFamily:
@@ -1047,7 +1047,7 @@ func (t *T) Name() string {
 	case StringFamily, CollatedStringFamily:
 		switch t.Oid() {
 		case oid.T_text:
-			return "string"
+			return "text"
 		case oid.T_bpchar:
 			return "char"
 		case oid.T_char:
@@ -2042,7 +2042,7 @@ func (t *T) collatedStringTypeSQL(isArray bool) string {
 // stringTypeSQL returns the visible type name plus any width specifier for the
 // STRING/COLLATEDSTRING type.
 func (t *T) stringTypeSQL() string {
-	typName := "STRING"
+	typName := "TEXT" // Use TEXT for postgresql compatibility
 	switch t.Oid() {
 	case oid.T_varchar:
 		typName = "VARCHAR"
