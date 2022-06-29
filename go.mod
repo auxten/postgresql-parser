@@ -8,7 +8,7 @@ require (
 	github.com/cockroachdb/errors v1.8.2
 	github.com/dustin/go-humanize v1.0.0
 	github.com/getsentry/raven-go v0.2.0
-	github.com/gogo/protobuf v1.3.1
+	github.com/gogo/protobuf v1.3.2
 	github.com/golang/protobuf v1.4.3 // indirect
 	github.com/google/go-cmp v0.5.1 // indirect
 	github.com/grpc-ecosystem/grpc-gateway v1.16.0
