@@ -39,7 +39,7 @@ github.com/dustin/go-humanize
 # github.com/getsentry/raven-go v0.2.0
 ## explicit
 github.com/getsentry/raven-go
-# github.com/gogo/protobuf v1.3.1
+# github.com/gogo/protobuf v1.3.2
 ## explicit
 github.com/gogo/protobuf/jsonpb
 github.com/gogo/protobuf/proto
