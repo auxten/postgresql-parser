@@ -18,8 +18,8 @@ To make things easy, I did these things:
 
 # Who is using this
 
-- [Atlas 1.8k stars](https://github.com/ariga/atlas)
-- [ByteBase 3.6k stars](https://github.com/bytebase/bytebase)
+- [Atlas](https://github.com/ariga/atlas) 1.8k stars
+- [ByteBase](https://github.com/bytebase/bytebase) 3.6k stars
 - [More](https://github.com/auxten/postgresql-parser/network/dependents)
 
 # Features
