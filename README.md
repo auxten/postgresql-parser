@@ -16,7 +16,11 @@ To make things easy, I did these things:
 7. Remove the `panic` of meeting unregistried functions, see the [WrapFunction](pkg/sql/sem/tree/function_name.go#L67)
 8. Other nasty things make the parser just work that I forgot :p
 
+# Who is using this
 
+- [Atlas 1.8k stars](https://github.com/ariga/atlas)
+- [ByteBase 3.6k stars](https://github.com/bytebase/bytebase)
+- [More](https://github.com/auxten/postgresql-parser/network/dependents)
 
 # Features
 - Pure golang implementation
@@ -80,6 +84,7 @@ $ make generate
 # Progress
 - 2021-02-16 `github.com/auxten/postgresql-parser/pkg/sql/parser` Unit tests works now!
 - 2021-03-08 Add walker package.
+- 2022-08-03 Remove vendored dependencies by @mostafa in https://github.com/auxten/postgresql-parser/pull/19
 
 # Todo
 - Fix more unit tests
