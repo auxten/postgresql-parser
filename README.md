@@ -25,6 +25,7 @@ To make things easy, I did these things:
 # Features
 - Pure golang implementation
 - *Almost* full support of PostgreSQL (`cockroachdb` style PostgreSQL)
+- For SQL lineage analysis see [go-sql-lineage](https://github.com/auxten/go-sql-lineage)
 
 ## SQL Standard Compliance
 
