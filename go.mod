@@ -14,7 +14,7 @@ require (
 	github.com/grpc-ecosystem/grpc-gateway v1.16.0
 	github.com/kr/pretty v0.2.0 // indirect
 	github.com/kr/text v0.2.0 // indirect
-	github.com/lib/pq v1.9.0
+	github.com/lib/pq v1.10.9
 	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
 	github.com/petermattis/goid v0.0.0-20180202154549-b0b1615b78e5
 	github.com/pkg/errors v0.9.1
